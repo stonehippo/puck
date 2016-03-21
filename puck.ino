@@ -17,7 +17,6 @@ products from Adafruit!
 #include <Adafruit_MQTT_Client.h>
 #include <Wire.h>
 #include <Adafruit_MMA8451.h>
-#include <Adafruit_Sensor.h>
 // You need to create an include file, wifi_config.h, and set your
 // Wifi SSID and password there. Refer to example_wifi_config.h to
 // see how this is done.
