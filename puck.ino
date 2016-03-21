@@ -74,7 +74,6 @@ void setup() {
 void loop() {
   MQTT_connect();
 
-  Serial.print("Is the puck flipped? ");
   boolean flipped = isFlipped();
   if(puckonoff.publish(flipped)) {
     Serial.print("Puck published status with value ");
