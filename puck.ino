@@ -58,6 +58,9 @@ Adafruit_MQTT_Publish puckonoff = Adafruit_MQTT_Publish(&mqtt, PUCK_ONOFF_FEED);
 
 Adafruit_MMA8451 mma = Adafruit_MMA8451();
 
+boolean boot_flag = true;
+boolean flipped;
+
 // Arduino 1.6.6 bug workaround
 void MQTT_connect();
 
@@ -68,20 +71,30 @@ void setup() {
   Serial.println();
   wifiSetup();
   accelerometerSetup();
+  flipped = isFlipped();
 }
 
 void loop() {
   MQTT_connect();
-
-  boolean flipped = isFlipped();
-  if(puckonoff.publish(flipped)) {
-    Serial.print("Puck published status with value ");
-    Serial.println(flipped);
-  } else {
-    Serial.println("Puck could not publish status");
+  if (boot_flag) {
+    startup();
   }
-  Serial.println();
-  delay(1000);
+
+  boolean current_state = isFlipped();
+  if (current_state != flipped) {
+    flipped = current_state;
+    puckonoff.publish(flipped);
+    Serial.print("Published state change with value ");
+    if (flipped) {
+      Serial.println("flipped (off)");
+    } else {
+      Serial.println("not flipped (on)");
+    }
+  }
+
+  if(! mqtt.ping()) {
+   mqtt.disconnect();
+  }
 }
 
 void accelerometerSetup() {
@@ -106,26 +119,33 @@ void wifiSetup() {
 
 boolean isFlipped() {
   uint8_t orientation = mma.getOrientation();
-  boolean flipped;
+  boolean state;
   switch(orientation) {
     case MMA8451_PL_PUB:
-      flipped = true;
+      state = true;
       break;
     case MMA8451_PL_PDB:
-      flipped = true;
+      state = true;
       break;
     case MMA8451_PL_LRB:
-      flipped = true;
+      state = true;
       break;
     case MMA8451_PL_LLB:
-      flipped = true;
+      state = true;
       break;
     default:
       // handle all of the front-oriented cases
-      flipped = false;
+      state = false;
       break;
   }
-  return flipped;
+  return state;
+}
+
+// Always publish the current status of the puck exactly once on startup
+void startup() {
+  Serial.println("Booting up communications");
+  puckonoff.publish(flipped);
+  boot_flag = false;
 }
 
 // Function to connect and reconnect as necessary to the MQTT server.
