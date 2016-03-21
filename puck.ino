@@ -31,7 +31,16 @@ void setup() {
   accelerometerSetup();
 }
 
-void loop() {}
+void loop() {
+  Serial.print("Is the puck flipped? ");
+  if (isFlipped()) {
+    Serial.println("yes!");
+  } else {
+    Serial.println("nope.");
+  }
+  Serial.println();
+  delay(1000);
+}
 
 void accelerometerSetup() {
   Wire.begin(SDA_PIN, SCL_PIN);
@@ -56,4 +65,28 @@ void wifiSetup() {
   Serial.println("WiFi Connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
+}
+
+boolean isFlipped() {
+  uint8_t orientation = mma.getOrientation();
+  boolean flipped;
+  switch(orientation) {
+    case MMA8451_PL_PUB:
+      flipped = true;
+      break;
+    case MMA8451_PL_PDB:
+      flipped = true;
+      break;
+    case MMA8451_PL_LRB:
+      flipped = true;
+      break;
+    case MMA8451_PL_LLB:
+      flipped = true;
+      break;
+    default:
+      // handle all of the front-oriented cases
+      flipped = false;
+      break;
+  }
+  return flipped;
 }
