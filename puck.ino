@@ -92,9 +92,6 @@ void accelerometerSetup() {
   }
   Serial.println("MMA8451 accelerometer started");
   mma.setRange(MMA8451_RANGE_2_G);
-  Serial.print("Range = ");
-  Serial.print(2 << mma.getRange());
-  Serial.println("G");
 }
 
 void wifiSetup() {
@@ -105,8 +102,6 @@ void wifiSetup() {
   }
   Serial.println();
   Serial.println("WiFi Connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
 }
 
 boolean isFlipped() {
