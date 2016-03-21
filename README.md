@@ -11,7 +11,7 @@ Puck talks to other devices via the Internet, using a protocol called [MQTT](htt
 
 The default firmware uses the [Adafruit IO](http://io.adafruit.com) service to send and receive data. But with a little alternation, Puck can speak to almost any service that uses MQTT to communicate with devices.
 
-Using MQTT, Pucks sends it's on/off message to the broker (a service that routes information for MQTT devices), and the broker can then use that information to trigger something else. For example, I have set up my Adafruit IO feed for Puck to call  [IFTTT](http://iftt.com), which in turn sends a command to some connected lighting in my house. Just by flipping Puck over, I can turn those lights on or off.
+Using MQTT, Pucks sends it's on/off message to the broker (a service that routes information for MQTT devices), and the broker can then use that information to trigger something else. For example, I have set up my Adafruit IO feed for Puck to be monitoried by [IFTTT](http://iftt.com), which in turn sends a command to some connected lighting in my house. Just by flipping Puck over, I can turn those lights on or off.
 
 ### So, it's a switch, then? Why not just use an actual _switch_? Or what about an app?
 
@@ -53,6 +53,17 @@ Take a look at (and dupe) `example_wifi_config.h` if you want to see what `wifi_
 
 * [ESP8266 ESP-01 Module](https://github.com/esp8266/esp8266-wiki/wiki/Hardware_versions)
 * [MMA8451 accelerometer breakout board](https://www.adafruit.com/products/2019), from [Adafruit](http://adafruit.com)
+
+## Contributing
+
+Puck is meant to be open source, in both the hardware and the software. If you've got updates of fixes for the firmware, yay! Fork for this repo, send me a PR and I'll get it merged it. You'll want the Arduino IDE, and you'll need to want to clone the code into your Sketchbook directory. On OS X, that looks something like this:
+
+```
+$ cd ~/Documents/Arduino
+$ git clone https://github.com/stonehippo/puck.git
+```
+
+ If you've refined the hardware in some way, I'd love to hear about it. Even beter, consider adding your hardware design to what's already here. Then we can have lots of Pucks to give. ;-)
 
 ## License
 
