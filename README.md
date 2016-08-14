@@ -32,9 +32,9 @@ Puck's firmware has the following dependencies:
 * [Adafruit MMA8451 accelerometer library](https://github.com/adafruit/Adafruit_MMA8451_Library)
 * [Adafruit MQTT library](https://github.com/adafruit/Adafruit_MQTT_Library)
 
-I install these via the Arduino Library manager, but you might prefer direct installation. See the various libraries for instruction on how to install.
+I install these via the PlatformIO library manager, but you might prefer direct installation. See the various libraries for instruction on how to install.
 
-I am currently building the Puck firmware using [Arduino 1.6.8](http://arduino.cc) on OS X 10.11. It should build fine with any version of Arduino >= 1.6.
+I am currently building the Puck firmware using [Platform.IO](http://platformio.org) on OS X 10.11.
 
 ### WiFi Configuration
 
@@ -56,14 +56,9 @@ Take a look at (and dupe) `example_wifi_config.h` if you want to see what `wifi_
 
 ## Contributing
 
-Puck is meant to be open source, in both the hardware and the software. If you've got updates of fixes for the firmware, yay! Fork for this repo, send me a PR and I'll get it merged it. You'll want the Arduino IDE, and you'll need to want to clone the code into your Sketchbook directory. On OS X, that looks something like this:
+Puck is meant to be open source, in both the hardware and the software. If you've got updates of fixes for the firmware, yay! Fork for this repo, send me a PR and I'll get it merged it. You'll want the [PlatformIO IDE](http://platformio.org), and you'll need to want to clone the code somewhere local.
 
-```
-$ cd ~/Documents/Arduino
-$ git clone https://github.com/stonehippo/puck.git
-```
-
- If you've refined the hardware in some way, I'd love to hear about it. Even beter, consider adding your hardware design to what's already here. Then we can have lots of Pucks to give. ;-)
+ If you've refined the hardware in some way, I'd love to hear about it. Even better, consider adding your hardware design to what's already here. Then we can have lots of Pucks to give. ;-)
 
 ## License
 
