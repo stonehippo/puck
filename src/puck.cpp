@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 /*
 Puck firmware version 1.0.0
 
@@ -60,6 +62,11 @@ Adafruit_MMA8451 mma = Adafruit_MMA8451();
 
 boolean boot_flag = true;
 boolean flipped;
+
+void accelerometerSetup();
+void wifiSetup();
+boolean isFlipped();
+void startup();
 
 // Arduino 1.6.6 bug workaround
 void MQTT_connect();
