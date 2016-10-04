@@ -1,7 +1,7 @@
-.DS_Store
 .pioenvs
 .clang_complete
 .gcc-flags.json
-
+.DS_Store
 wifi_config.h
 mqtt_config.h
+.piolibdeps
