@@ -19,6 +19,7 @@ products from Adafruit!
 #include <Adafruit_MQTT_Client.h>
 #include <Wire.h>
 #include <Adafruit_MMA8451.h>
+#include <Fsm.h>
 // You need to create an include file, wifi_config.h, and set your
 // Wifi SSID and password there. Refer to example_wifi_config.h to
 // see how this is done.
@@ -60,8 +61,18 @@ Adafruit_MQTT_Publish puckonoff = Adafruit_MQTT_Publish(&mqtt, PUCK_ONOFF_FEED);
 
 Adafruit_MMA8451 mma = Adafruit_MMA8451();
 
+// FSM events
+enum Events {
+  FLIPPED
+};
+
+// Set up the state machine
+State state_not_flipped(on_not_flipped_enter, &on_not_flipped_exit);
+State state_flipped(on_flipped_enter, &on_flipped_exit);
+Fsm modes(&state_not_flipped)
+    
 boolean boot_flag = true;
-boolean flipped;
+boolean flipped = false;
 
 void accelerometerSetup();
 void wifiSetup();
@@ -78,31 +89,44 @@ void setup() {
   Serial.println();
   wifiSetup();
   accelerometerSetup();
-  flipped = isFlipped();
+  if (isFlipped()) {
+    modes.trigger(FLIPPED);
+  }
 }
+
+modes.add_transition(&state_not_flipped, &state_flipped, FLIPPED, null);
+modes.add_transtion(&state_flipped, &state_not_flipped, FLIPPED, null);
 
 void loop() {
   MQTT_connect();
   if (boot_flag) {
     startup();
   }
-
-  boolean current_state = isFlipped();
-  if (current_state != flipped) {
-    flipped = current_state;
-    puckonoff.publish(flipped);
-    Serial.print("Published state change with value ");
-    if (flipped) {
-      Serial.println("flipped (off)");
-    } else {
-      Serial.println("not flipped (on)");
-    }
+  
+  if (flipped != isFlipped()) {
+    modes.trigger(FLIPPED);
   }
-
+  
   if(! mqtt.ping()) {
    mqtt.disconnect();
   }
 }
+
+void on_not_flipped_enter() {
+  flipped = false;
+  puckonoff.publish(false);
+  Serial.print("not flipped (on)");
+}
+
+void on_not_flipped_exit() {}
+
+void on_flipped_enter() {
+  flipped = true;
+  puckonoff.publish(true);
+  Serial.print("flipped (off)");
+}
+
+void on_flipped_exit() {}
 
 void accelerometerSetup() {
   Wire.begin(SDA_PIN, SCL_PIN);
