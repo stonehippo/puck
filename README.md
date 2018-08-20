@@ -31,6 +31,7 @@ Puck's firmware has the following dependencies:
 * [ESP8266 Arduino library](https://github.com/esp8266/Arduino)
 * [Adafruit MMA8451 accelerometer library](https://github.com/adafruit/Adafruit_MMA8451_Library)
 * [Adafruit MQTT library](https://github.com/adafruit/Adafruit_MQTT_Library)
+* [arduino-fsm](https://github.com/jonblack/arduino-fsm)
 
 I install these via the PlatformIO library manager, but you might prefer direct installation. See the various libraries for instruction on how to install.
 
