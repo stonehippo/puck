@@ -90,13 +90,14 @@ void setup() {
   Serial.println();
   wifiSetup();
   accelerometerSetup();
+  
+  modes.add_transition(&state_not_flipped, &state_flipped, FLIPPED, NULL);
+  modes.add_transtion(&state_flipped, &state_not_flipped, FLIPPED, NULL);
+  
   if (isFlipped()) {
     modes.trigger(FLIPPED);
   }
 }
-
-modes.add_transition(&state_not_flipped, &state_flipped, FLIPPED, NULL);
-modes.add_transtion(&state_flipped, &state_not_flipped, FLIPPED, NULL);
 
 void loop() {
   // we don't call modes.run_machine, since we're not using timed or on_state functions
