@@ -20,6 +20,7 @@ products from Adafruit!
 #include <Wire.h>
 #include <Adafruit_MMA8451.h>
 #include <Fsm.h>
+#include <puck.h>
 // You need to create an include file, wifi_config.h, and set your
 // Wifi SSID and password there. Refer to example_wifi_config.h to
 // see how this is done.
