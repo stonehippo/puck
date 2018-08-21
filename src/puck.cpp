@@ -68,8 +68,8 @@ enum Events {
 };
 
 // Set up the state machine
-State state_not_flipped(on_not_flipped_enter, &on_not_flipped_exit);
-State state_flipped(on_flipped_enter, &on_flipped_exit);
+State state_not_flipped(on_not_flipped_enter, NULL, &on_not_flipped_exit);
+State state_flipped(on_flipped_enter, NULL, &on_flipped_exit);
 Fsm modes(&state_not_flipped)
     
 boolean boot_flag = true;
@@ -95,10 +95,11 @@ void setup() {
   }
 }
 
-modes.add_transition(&state_not_flipped, &state_flipped, FLIPPED, null);
-modes.add_transtion(&state_flipped, &state_not_flipped, FLIPPED, null);
+modes.add_transition(&state_not_flipped, &state_flipped, FLIPPED, NULL);
+modes.add_transtion(&state_flipped, &state_not_flipped, FLIPPED, NULL);
 
 void loop() {
+  // we don't call modes.run_machine, since we're not using timed or on_state functions
   MQTT_connect();
   if (boot_flag) {
     startup();
