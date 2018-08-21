@@ -92,7 +92,7 @@ void setup() {
   accelerometerSetup();
   
   modes.add_transition(&state_not_flipped, &state_flipped, FLIPPED, NULL);
-  modes.add_transtion(&state_flipped, &state_not_flipped, FLIPPED, NULL);
+  modes.add_transition(&state_flipped, &state_not_flipped, FLIPPED, NULL);
   
   if (isFlipped()) {
     modes.trigger(FLIPPED);
