@@ -64,4 +64,12 @@ Puck is meant to be open source, in both the hardware and the software. If you'v
 ## License
 
 Puck is copyright (c) 2016 George White <stonehippo@gmail.com>.
+
 This code is licensed under GPL v3. License is available [here](/LICENSE).
+
+Portions of this code written by Tony DiCola for Adafruit Industries,
+covered by MIT license.
+
+Adafruit invests time and resources providing this open source code,
+please support [Adafruit](https://adafruit.com) and open-source hardware by purchasing
+products from Adafruit!
