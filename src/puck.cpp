@@ -70,7 +70,7 @@ enum Events {
 // Set up the state machine
 State state_not_flipped(on_not_flipped_enter, NULL, &on_not_flipped_exit);
 State state_flipped(on_flipped_enter, NULL, &on_flipped_exit);
-Fsm modes(&state_not_flipped)
+Fsm modes(&state_not_flipped);
     
 boolean boot_flag = true;
 boolean flipped = false;
