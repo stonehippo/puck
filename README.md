@@ -39,7 +39,7 @@ I am currently building the Puck firmware using [Platform.IO](http://platformio.
 
 ### WiFi Configuration
 
-To keep secure information out of this repository, WiFi SSID and password information is stored in a separate header file, `wifi_config.h`. You need to create this file in the Puck folder, and define two values.
+To keep secure information out of this repository, WiFi SSID and password information is stored in a separate header file, `include/wifi_config.h`. You need to create this file in the Puck folder, and define two values.
 
 ```
 #define MY_WIFI_SSID        "MyNetwork"
@@ -48,7 +48,20 @@ To keep secure information out of this repository, WiFi SSID and password inform
 
 Once created, the config header will be included into the main firmware build.
 
-Take a look at (and dupe) `example_wifi_config.h` if you want to see what `wifi_config.h` must contain.
+Take a look at (and dupe) [include/example_wifi_config.h](include/example_wifi_config.h) if you want to see what `include/wifi_config.h` must contain.
+
+### MQTT Configuration
+
+Puck is currently set up to use [AdafruitIO](https://io.adafruit.com) as an MQTT provider. You will need to set up your own ID and access toke info in the file `include/mqtt_config.h`. It defines the following values:
+
+```
+#define MY_AIO_USERNAME    "...your AIO username (see https://accounts.adafruit.com)..."
+#define MY_AIO_KEY         "...your AIO key..."
+```
+
+Take a look at [include/example_mqtt_config.h](include/example_mqtt_config.h) for a template file you can copy and fill in.
+
+*Note:* It's entirely possible to use Puck with other MQTT brokers. Right now, the service is set up in `arc/puck.cpp`. However, the values could be migrated to macros defined in `include/mqtt_config.h`, similar to the setup for the MQTT authentication. I'll probably make exactly that modification at some point.
 
 ## Hardware
 
